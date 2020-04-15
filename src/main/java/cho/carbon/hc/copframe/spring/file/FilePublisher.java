@@ -5,19 +5,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cho.carbon.hc.copframe.spring.CPFSpringContextLoader;
 
 /**
- * 文件发布器
+ * 文件发布�?
  * @author Copperfield
- * @date 2018年7月25日 下午3:32:13
+ * @date 2018�?7�?25�? 下午3:32:13
  */
 public class FilePublisher{
 	
 	private static FilePublisher instance; 
-	static Logger logger = Logger.getLogger(FilePublisher.class);
+	static Logger logger = LoggerFactory.getLogger(FilePublisher.class);
 	
 	
 	/**

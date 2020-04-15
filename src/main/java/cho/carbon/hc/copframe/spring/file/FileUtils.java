@@ -7,13 +7,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 
 public class FileUtils {
 	private final String absPath;
 	private final String folderUri;
-	Logger logger = Logger.getLogger(FileUtils.class);
+	Logger logger = LoggerFactory.getLogger(FileUtils.class);
 	
 	
 	public FileUtils(String absPath, String folderUri) {
