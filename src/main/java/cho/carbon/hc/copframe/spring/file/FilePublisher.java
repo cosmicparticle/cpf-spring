@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import cho.carbon.hc.copframe.spring.CPFSpringContextLoader;
 
 /**
- * 文件发布�?
+ * 文件发布器
  * @author Copperfield
- * @date 2018�?7�?25�? 下午3:32:13
+ * @date 2018�?7�?25�? 下午3:32:13
  */
 public class FilePublisher{
 	

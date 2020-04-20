@@ -54,7 +54,7 @@ public class ClassPropertyComposite {
 				| InvocationTargetException e) {
 			throw new PropertyMethodException(e);
 		} catch (IllegalArgumentException e) {
-			logger.error("方法[" + setter + "],设置属�?��?�[" + value + "]", e);
+			logger.error("方法[" + setter + "],设置属性值[" + value + "]",  e);
 		}
 		return this;
 	}

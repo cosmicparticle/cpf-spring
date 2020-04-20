@@ -17,7 +17,7 @@ public class CPFSpringContextLoader implements ApplicationContextAware{
 		if(CPFSpringContextLoader.applicationContext == null) {
 			CPFSpringContextLoader.applicationContext = applicationContext;
 		}else {
-			logger.debug("重复初始化�?�FilePublisher类已经初始化过applicationContext，将不再初始化新的容器对�?");
+			logger.debug("重复初始化。FilePublisher类已经初始化过applicationContext，将不再初始化新的容器对象");
 		}
 	}
 	
