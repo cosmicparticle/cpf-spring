@@ -37,12 +37,12 @@ public class PropertyBinder {
 	public PropertyBinder(Object target) {
 		Assert.notNull(target);
 		this.target = target;
-		//默认添加�?个属性反射转换器
+		//默认添加一个属性反射转换器
 		addPvConverter(ReflectSetValueConverter.getInstance());
 	}
 	
 	/**
-	 ** 根据字段-值对象，通过反射获得字段的setter方法，并绑定对象的属性
+	 * 根据字段-值对象，通过反射获得字段的setter方法，并绑定对象的属性
 	 * @param pvs 字段-值对象。类似于Map<String, Object>
 	 * @throws BindException 当绑定失败时，会抛出异常
 	 */
@@ -88,7 +88,7 @@ public class PropertyBinder {
 		this.pvConverterList.add(0, pvConverter);
 	}
 	/**
-	 *添加属性值转换器数组。注意添加方式是插入到序列的头部，越后面添加的转换器优先级越高
+	 * 添加属性值转换器数组。注意添加方式是插入到序列的头部，越后面添加的转换器优先级越高
 	 * @param propertyValueConverters
 	 */
 	@SuppressWarnings("rawtypes")
