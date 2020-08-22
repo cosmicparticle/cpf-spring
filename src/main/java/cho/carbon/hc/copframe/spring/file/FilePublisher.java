@@ -49,7 +49,16 @@ public class FilePublisher{
 	
 	FileUtils fileUtils;
 	
-	Map<String, String> fileNameMap = new HashMap<>();
+	private Map<String, String> fileNameMap = new HashMap<>();
+	private Map<String, String> fileSuffixMap = new HashMap<>();
+	
+	public String getFileName(String fileCode) {
+		return fileNameMap.get(fileCode);
+	}
+	
+	public String getFileSuffix(String fileCode) {
+		return fileSuffixMap.get(fileCode);
+	}
 	
 	public void setFileUtils(FileUtils fileUtils) {
 		this.fileUtils = fileUtils;
@@ -67,6 +76,7 @@ public class FilePublisher{
 			try {
 				this.fileUtils.saveFile(file.getCode(), file.getInputStream());
 				fileNameMap.put(file.getCode(), file.getFileName());
+				fileSuffixMap.put(file.getCode(), file.getSuffix());
 				return getURL(file);
 			} catch (IOException e) {
 				logger.error("", e);
