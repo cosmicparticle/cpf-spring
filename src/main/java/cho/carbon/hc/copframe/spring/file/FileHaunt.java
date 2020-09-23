@@ -51,4 +51,7 @@ public interface FileHaunt extends InputStreamSource{
 	default FileType getType() {
 		return FileType.UNKNOWN;
 	}
+	
+	void resetBytes();
+	
 }

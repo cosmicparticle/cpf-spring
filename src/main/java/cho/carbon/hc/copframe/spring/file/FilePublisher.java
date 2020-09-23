@@ -1,7 +1,9 @@
 package cho.carbon.hc.copframe.spring.file;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +53,8 @@ public class FilePublisher{
 	
 	private Map<String, String> fileNameMap = new HashMap<>();
 	private Map<String, String> fileSuffixMap = new HashMap<>();
+	private Map<String, FileHaunt> fileHauntMap = new HashMap<>();
+	private Map<String, byte[]> fileBytesMap = new HashMap<>();
 	
 	public String getFileName(String fileCode) {
 		return fileNameMap.get(fileCode);
@@ -58,6 +62,19 @@ public class FilePublisher{
 	
 	public String getFileSuffix(String fileCode) {
 		return fileSuffixMap.get(fileCode);
+	}
+	
+	public InputStream getFileBodyIS(String fileCode) {
+		byte[] bytes = fileBytesMap.get(fileCode);
+		if(bytes==null) {
+			publish(fileHauntMap.get(fileCode));
+		}
+		if(bytes!=null) {
+			return new ByteArrayInputStream(bytes);
+		}else {
+			return null;
+		}
+		
 	}
 	
 	public void setFileUtils(FileUtils fileUtils) {
@@ -68,19 +85,27 @@ public class FilePublisher{
 	public String publish(FileHaunt file) {
 		if(file.getCode() != null) {
 			if(fileNameMap.containsKey(file.getCode())) {
-				File f = this.fileUtils.getFile(file.getCode());
-				if(f != null && f.exists()) {
+				return getURL(file);
+			}else {
+				try {
+					//this.fileUtils.saveFile(file.getCode(), file.getInputStream());
+					fileNameMap.put(file.getCode(), file.getFileName());
+					fileSuffixMap.put(file.getCode(), file.getSuffix());
+					fileHauntMap.put(file.getCode(), file);
+					if(fileBytesMap.size()>100) {//缓存100个文件
+						fileBytesMap=new HashMap<>();
+					}
+					if(file.getBytes()!=null) {
+						fileBytesMap.put(file.getCode(), file.getBytes());
+						file.resetBytes();
+					}
+					
 					return getURL(file);
+				} catch (Exception e) {
+					logger.error("", e);
 				}
 			}
-			try {
-				this.fileUtils.saveFile(file.getCode(), file.getInputStream());
-				fileNameMap.put(file.getCode(), file.getFileName());
-				fileSuffixMap.put(file.getCode(), file.getSuffix());
-				return getURL(file);
-			} catch (IOException e) {
-				logger.error("", e);
-			}
+			
 		}
 		return null;
 	}

@@ -34,16 +34,27 @@ public class FileUtils {
 		return folderUri + "/" + fileName;
 	}
 	
-	public File getFile(String fileName) {
-		File file = new File(absPath + "/" + fileName);
+	public File getFile(FileHaunt fileHaunt) {
+		File file = new File(absPath + "/" + fileHaunt.getCode());
 		if(file.exists()) {
 			return file;
+		}else {//尝试加载
+			try {
+				this.saveFile(fileHaunt.getCode(), fileHaunt.getInputStream());
+				file = new File(absPath + "/" + fileHaunt.getCode());
+				if(file.exists()) {
+					return file;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 	
-	public FileInputStream getInputStream(String fileName) throws FileNotFoundException {
-		File file = getFile(fileName);
+	public FileInputStream getInputStream(FileHaunt fileHaunt) throws FileNotFoundException {
+		File file = getFile(fileHaunt);
 		if(file != null) {
 			return new FileInputStream(file);
 		}else {

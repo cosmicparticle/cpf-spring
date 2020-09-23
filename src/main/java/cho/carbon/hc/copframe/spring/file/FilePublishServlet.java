@@ -45,8 +45,10 @@ public class FilePublishServlet extends HttpServlet {
 				resp.setHeader("content-disposition", "attachment");
 			}
 			
-			FileInputStream input = publisher.fileUtils.getInputStream(code);
-			StreamUtils.copy(input, resp.getOutputStream());
+			//FileInputStream input = publisher.fileUtils.getInputStream(publisher.getFileHaunt(code));
+			
+			StreamUtils.copy(publisher.getFileBodyIS(code), resp.getOutputStream());
+			
 			
 		}
 	}
