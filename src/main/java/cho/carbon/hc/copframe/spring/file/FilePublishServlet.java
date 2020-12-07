@@ -2,6 +2,7 @@ package cho.carbon.hc.copframe.spring.file;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,12 @@ public class FilePublishServlet extends HttpServlet {
 		if (key.contains("/")) {
 			code = key.substring(0, key.indexOf("/"));
 		}
-		if (publisher.containsCode(code)) {
+		InputStream is;
+		if (!publisher.containsCode(code)) {//若没有就尝试加载，
+			is=publisher.getFileBodyIS(code);
+		}
+		
+		if (publisher.containsCode(code)) {//尚若此处还是没有则直接返回
 			String fileName = publisher.getFileName(code);
 			
 			resp.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
